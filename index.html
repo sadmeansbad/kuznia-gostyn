@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuźnia Gostyń - Twoja Siłownia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Variables for color theme */
+        :root {
+            --primary: #e63946;
+            --dark: #1d3557;
+            --light: #f1faee;
+            --secondary: #457b9d;
+            --accent: #a8dadc;
+        }
+
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: 'Montserrat', 'Arial', sans-serif; /* Using Montserrat font */
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--light);
+        }
+
+        /* Header styling */
+        header {
+            background-color: var(--dark);
+            padding: 1rem 0; /* Default padding */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease; /* Smooth transition for changes */
+        }
+
+        /* Header container */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Logo link styling */
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Logo image styling */
+        .logo img {
+            height: 40px; /* Set a fixed height */
+            width: auto; /* Maintain aspect ratio */
+            margin-right: 10px; /* Space between image and text */
+            object-fit: contain; /* Ensure the image scales down nicely if needed */
+        }
+
+        /* Logo text styling */
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        /* Mobile menu button (hidden by default) */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Navigation styling */
+        nav {
+            display: flex;
+        }
+
+        /* Navigation links */
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            margin: 0 5px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        /* Navigation link hover effect */
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Underline effect for nav links */
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        /* Hero section styling */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('hero.jpg') center/cover no-repeat;
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            margin-top: 0; /* Remove default margin */
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeIn 1.5s ease; /* Fade-in animation */
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            animation: fadeIn 2s ease; /* Fade-in animation */
+        }
+
+        /* Button styling */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px; /* Rounded corners */
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: fadeIn 2.5s ease; /* Fade-in animation */
+        }
+
+        .btn:hover {
+            background-color: #d62b39; /* Darker shade on hover */
+            transform: translateY(-3px); /* Slight lift effect */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        }
+
+        .btn:active {
+            transform: translateY(-1px); /* Press effect */
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Outline button style */
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Section styling */
+        .section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Section title styling */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Underline for section titles */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* About section content layout */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px; /* Space between image and text */
+        }
+
+        /* About section image container */
+        .about-img {
+            flex: 1; /* Take up half the space */
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* About section image */
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block; /* Remove bottom space */
+            transition: transform 0.8s ease; /* Zoom effect on hover */
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05); /* Zoom in */
+        }
+
+        /* About section text container */
+        .about-text {
+            flex: 1; /* Take up half the space */
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Classes section grid layout */
+        .classes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+            gap: 30px;
+        }
+
+        /* Class card styling */
+        .class-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effects */
+        }
+
+        .class-card:hover {
+            transform: translateY(-10px); /* Lift effect */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Increased shadow */
+        }
+
+        /* Class card image container */
+        .class-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        /* Class card image */
+        .class-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the container */
+            transition: transform 0.5s ease; /* Zoom effect */
+        }
+
+        .class-card:hover .class-img img {
+            transform: scale(1.1); /* Zoom in */
+        }
+
+        /* Class card info section */
+        .class-info {
+            padding: 20px;
+        }
+
+        .class-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .class-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Class card metadata (time, instructor) */
+        .class-meta {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .class-meta i {
+            margin-right: 5px;
+        }
+
+        /* Gallery section grid layout */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+            gap: 20px;
+        }
+
+        /* Gallery item container */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            aspect-ratio: 1 / 1; /* Square aspect ratio */
+        }
+
+        /* Gallery item image */
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1); /* Zoom effect */
+        }
+
+        /* Gallery item overlay */
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1; /* Show on hover */
+        }
+
+        /* Pricing section layout */
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        /* Pricing card styling */
+        .pricing-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            text-align: center;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden; /* Needed for the featured banner */
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px); /* Lift effect */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Featured pricing card */
+        .pricing-card.featured {
+            border: 2px solid var(--primary);
+        }
+
+        /* Featured banner */
+        .pricing-card.featured::before {
+            content: "Najpopularniejszy";
+            position: absolute;
+            top: 15px; /* Adjust position */
+            right: -35px; /* Adjust position */
+            transform: rotate(45deg);
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Pricing card header */
+        .pricing-header {
+            margin-bottom: 20px;
+        }
+
+        .pricing-name {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            color: #888;
+        }
+
+        /* Pricing card features list */
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* Contact section layout */
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+
+        /* Contact info container */
+        .contact-info {
+            flex: 1;
+        }
+
+        /* Contact form container */
+        .contact-form {
+            flex: 1;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form group styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Form input/textarea styling */
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Contact info item styling */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        /* Contact info icon styling */
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            flex-shrink: 0; /* Prevent icon from shrinking */
+        }
+
+        /* Contact info text styling */
+        .contact-text h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .contact-text p {
+            color: #666;
+        }
+
+        /* Social media links container */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Social media link styling */
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            text-decoration: none; /* Remove underline */
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px); /* Lift effect */
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        /* Footer grid layout */
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+            gap: 30px;
+        }
+
+        /* Footer column styling */
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px; /* Space for underline */
+        }
+
+        /* Footer column title underline */
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        /* Footer links list */
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Footer bottom text */
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Schedule modal styling */
+        .schedule-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+            z-index: 1100; /* Above header */
+            overflow-y: auto; /* Scroll if content overflows */
+            padding: 50px 0; /* Padding top/bottom */
+        }
+
+        /* Modal content container */
+        .modal-content {
+            background-color: white;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 10px;
+            position: relative;
+            animation: modalFadeIn 0.4s ease; /* Fade-in animation */
+        }
+
+        /* Modal close button */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #666;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--primary);
+        }
+
+        /* Schedule table styling */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .schedule-table th {
+            background-color: var(--accent);
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .schedule-table tr:hover {
+            background-color: #f8f8f8; /* Highlight row on hover */
+        }
+
+        .schedule-day {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .schedule-class {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Back to top button styling */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0; /* Hidden by default */
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: #d62b39; /* Darker shade on hover */
+            transform: translateY(-5px); /* Lift effect */
+        }
+
+        /* Keyframe animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design adjustments */
+        @media (max-width: 992px) {
+            /* Stack about and contact sections on medium screens */
+            .about-content,
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Header adjustments for smaller screens */
+            .header-container {
+                padding: 0 15px;
+            }
+
+            .mobile-menu-btn {
+                display: block; /* Show mobile menu button */
+            }
+
+            /* Mobile navigation menu */
+            nav {
+                position: absolute;
+                top: 100%; /* Position below header */
+                left: 0;
+                right: 0;
+                background-color: var(--dark);
+                flex-direction: column;
+                padding: 20px;
+                /* Use clip-path for slide-down effect */
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: all 0.4s ease;
+            }
+
+            nav.active {
+                /* Expand clip-path to show menu */
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            nav a {
+                margin: 10px 0; /* Adjust spacing for vertical layout */
+            }
+
+            /* Adjust hero text size */
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            /* Adjust section padding */
+            .section {
+                padding: 60px 15px;
+            }
+
+            /* Adjust section title size */
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            /* Adjust gallery grid */
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            /* Adjust logo image size for smaller screens */
+            .logo img {
+                height: 35px; /* Slightly smaller logo */
+            }
+             /* Adjust logo text size */
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <header id="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Kuźnia Gostyń Logo">
+                <h1>Kuźnia Gostyń</h1>
+            </a>
+
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav id="nav">
+                <a href="#o-nas">O Nas</a>
+                <a href="#zajecia">Zajęcia</a>
+                <a href="#galeria">Galeria</a>
+                <a href="#cennik">Cennik</a>
+                <a href="#kontakt">Kontakt</a>
+                <a href="#" id="pokaz-harmonogram">Harmonogram</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Odkryj swoją siłę w Kuźni Gostyń</h1>
+        <p>Profesjonalny sprzęt, doświadczeni trenerzy i przyjazna atmosfera to tylko początek Twojej transformacji</p>
+        <a href="#kontakt" class="btn">Zapisz się teraz</a>
+    </section>
+
+    <section id="o-nas" class="section">
+        <div class="section-title">
+            <h2>O Nas</h2>
+        </div>
+        <div class="about-content">
+            <div class="about-img">
+                <img src="1.jpg" alt="Kuźnia Gostyń - wnętrze siłowni" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f1faee/1d3557?text=Brak+obrazka';">
+            </div>
+            <div class="about-text">
+                <p>Witaj w Kuźni Gostyń - miejscu, gdzie pasja do sportu łączy się z profesjonalizmem i indywidualnym podejściem do każdego klienta. Nasza siłownia to nie tylko nowoczesny sprzęt i wykwalifikowana kadra trenerska, ale przede wszystkim społeczność ludzi, którzy wspólnie dążą do swoich celów.</p>
+                <p>Pomagamy mieszkańcom Gostyni i okolic osiągać ich cele fitnessowe, niezależnie od tego, czy dopiero zaczynają swoją przygodę ze sportem, czy są doświadczonymi atletami. Wierzymy, że trening powinien być skuteczny, bezpieczny i sprawiać przyjemność.</p>
+                <a href="#zajecia" class="btn btn-outline">Poznaj nasze zajęcia</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="zajecia" class="section">
+        <div class="section-title">
+            <h2>Nasze Zajęcia</h2>
+        </div>
+        <div class="classes-container">
+            <div class="class-card">
+                <div class="class-img">
+                    <img src="2.jpg" alt="Trening siłowy" onerror="this.onerror=null; this.src='https://placehold.co/400x200/f1faee/1d3557?text=Brak+obrazka';">
+                </div>
+                <div class="class-info">
+                    <h3>Trening siłowy</h3>
+                    <p>Skup się na budowaniu masy mięśniowej i zwiększaniu siły pod okiem doświadczonych trenerów.</p>
+                    <div class="class-meta">
+                        <span><i class="far fa-clock"></i> 60 min</span>
+                        <span><i class="fas fa-user"></i> Jan Kowalski</span>
+                    </div>
+                </div>
+            </div>
+            <div class="class-card">
+                <div class="class-img">
+                    <img src="3.jpg" alt="Zumba" onerror="this.onerror=null; this.src='https://placehold.co/400x200/f1faee/1d3557?text=Brak+obrazka';">
+                </div>
+                <div class="class-info">
+                    <h3>Zumba</h3>
+                    <p>Energiczne zajęcia fitness inspirowane latynoskimi rytmami. Świetna zabawa i spalanie kalorii.</p>
+                    <div class="class-meta">
+                        <span><i class="far fa-clock"></i> 45 min</span>
+                        <span><i class="fas fa-user"></i> Anna Nowak</span>
+                    </div>
+                </div>
+            </div>
+            <div class="class-card">
+                <div class="class-img">
+                    <img src="4.jpg" alt="Crossfit" onerror="this.onerror=null; this.src='https://placehold.co/400x200/f1faee/1d3557?text=Brak+obrazka';">
+                </div>
+                <div class="class-info">
+                    <h3>Crossfit</h3>
+                    <p>Intensywny trening funkcjonalny oparty na zróżnicowanych ćwiczeniach o wysokiej intensywności.</p>
+                    <div class="class-meta">
+                        <span><i class="far fa-clock"></i> 50 min</span>
+                        <span><i class="fas fa-user"></i> Piotr Wiśniewski</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="#" id="pokaz-harmonogram-btn" class="btn">Zobacz pełny harmonogram</a>
+        </div>
+    </section>
+
+    <section id="galeria" class="section">
+        <div class="section-title">
+            <h2>Galeria</h2>
+        </div>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="5.jpg" alt="Siłownia Kuźnia Gostyń" onerror="this.onerror=null; this.src='https://placehold.co/300x300/f1faee/1d3557?text=Brak+obrazka';">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus fa-2x"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="6.jpg" alt="Trening personalny" onerror="this.onerror=null; this.src='https://placehold.co/300x300/f1faee/1d3557?text=Brak+obrazka';">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus fa-2x"></i>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="7.jpg" alt="Zajęcia grupowe" onerror="this.onerror=null; this.src='https://placehold.co/300x300/f1faee/1d3557?text=Brak+obrazka';">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus fa-2x"></i>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <section id="cennik" class="section">
+        <div class="section-title">
+            <h2>Cennik</h2>
+        </div>
+        <div class="pricing-container">
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-name">Miesięczny</h3>
+                    <div class="pricing-price">129 zł <span></span></div>
+                </div>
+                <ul class="pricing-features">
+                    <li>Nielimitowany dostęp</li>
+                    <li>Szatnia i prysznice</li>
+                    <li>Dostęp od 6:00 do 22:00</li>
+                </ul>
+                <a href="#kontakt" class="btn btn-outline">Wybierz plan</a>
+            </div>
+            <div class="pricing-card featured">
+                <div class="pricing-header">
+                    <h3 class="pricing-name">Półroczny</h3>
+                    <div class="pricing-price">666 zł <span></span></div>
+                </div>
+                <ul class="pricing-features">
+                    <li>Nielimitowany dostęp</li>
+                    <li>Pełny dostęp do sprzętu</li>
+                    <li>Szatnia i prysznice</li>
+                    <li>Dostęp 24/7</li>
+                    <li>2 treningi personalne</li>
+                </ul>
+                <a href="#kontakt" class="btn">Wybierz plan</a>
+            </div>
+            </div>
+    </section>
+
+    <section id="kontakt" class="section">
+        <div class="section-title">
+            <h2>Kontakt</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-text">
+                        <h3>Adres</h3>
+                        <p>ul. Sportowa 15, 63-800 Gostyń</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="contact-text">
+                        <h3>Telefon</h3>
+                        <p>+48 692 137 420</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-text">
+                        <h3>Email</h3>
+                        <p>kontakt@kuzniagostyn.pl</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                    <div class="contact-text">
+                        <h3>Godziny otwarcia</h3>
+                        <p>Poniedziałek - Piątek: 6:00 - 22:00</p>
+                        <p>Sobota: 8:00 - 20:00</p>
+                        <p>Niedziela: 10:00 - 18:00</p>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/kuznia_goatstyn" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Wyślij wiadomość</h3>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Imię i nazwisko</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon (opcjonalnie)</label>
+                        <input type="tel" id="phone" name="phone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Temat</label>
+                        <input type="text" id="subject" name="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Wiadomość</label>
+                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Wyślij wiadomość</button>
+                </form>
+                <div id="form-message" style="margin-top: 15px; color: var(--primary);"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Kuźnia Gostyń</h3>
+                <p>Profesjonalna siłownia w sercu Gostyni. Pomagamy mieszkańcom osiągać ich cele fitness od ponad 5 lat.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/kuznia_goatstyn" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Szybkie linki</h3>
+                <ul class="footer-links">
+                    <li><a href="#o-nas">O Nas</a></li>
+                    <li><a href="#zajecia">Zajęcia</a></li>
+                    <li><a href="#galeria">Galeria</a></li>
+                    <li><a href="#cennik">Cennik</a></li>
+                    <li><a href="#kontakt">Kontakt</a></li>
+                    <li><a href="#" id="pokaz-harmonogram-footer">Harmonogram</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Zajęcia</h3>
+                <ul class="footer-links">
+                    <li><a href="#zajecia">Trening siłowy</a></li>
+                    <li><a href="#zajecia">Zumba</a></li>
+                    <li><a href="#zajecia">Crossfit</a></li>
+                    </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Godziny otwarcia</h3>
+                <ul class="footer-links">
+                    <li>Poniedziałek - Piątek: 6:00 - 22:00</li>
+                    <li>Sobota: 8:00 - 20:00</li>
+                    <li>Niedziela: 10:00 - 18:00</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Kuźnia Gostyń. Wszelkie prawa zastrzeżone.</p>
+        </div>
+    </footer>
+
+    <div class="schedule-modal" id="schedule-modal">
+        <div class="modal-content">
+            <button class="close-btn" id="close-modal-btn" aria-label="Zamknij okno"><i class="fas fa-times"></i></button>
+            <h2>Harmonogram Zajęć</h2>
+            <p>Sprawdź nasz aktualny harmonogram i znajdź zajęcia idealne dla siebie!</p>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Dzień</th>
+                        <th>Godzina</th>
+                        <th>Zajęcia</th>
+                        <th>Prowadzący</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="schedule-day">Poniedziałek</td>
+                        <td>18:00</td>
+                        <td class="schedule-class">Trening siłowy</td>
+                        <td>Jan Kowalski</td>
+                    </tr>
+                    <tr>
+                        <td class="schedule-day">Wtorek</td>
+                        <td>17:00</td>
+                        <td class="schedule-class">Aerobik</td>
+                        <td>Anna Nowak</td>
+                    </tr>
+                    <tr>
+                        <td class="schedule-day">Wtorek</td>
+                        <td>19:00</td>
+                        <td class="schedule-class">Zumba</td>
+                        <td>Anna Nowak</td>
+                    </tr>
+                    <tr>
+                        <td class="schedule-day">Środa</td>
+                        <td>17:30</td>
+                        <td class="schedule-class">Crossfit</td>
+                        <td>Piotr Wiśniewski</td>
+                    </tr>
+                    <tr>
+                        <td class="schedule-day">Czwartek</td>
+                        <td>18:30</td>
+                        <td class="schedule-class">Joga</td>
+                        <td>Katarzyna Lewandowska</td>
+                    </tr>
+                    <tr>
+                        <td class="schedule-day">Piątek</td>
+                        <td>16:00</td>
+                        <td class="schedule-class">Pilates</td>
+                        <td>Marta Zając</td>
+                    </tr>
+                    <tr>
+                        <td class="schedule-day">Piątek</td>
+                        <td>19:30</td>
+                        <td class="schedule-class">Trening funkcjonalny</td>
+                        <td>Piotr Wiśniewski</td>
+                    </tr>
+                    <tr>
+                        <td class="schedule-day">Sobota</td>
+                        <td>10:00</td>
+                        <td class="schedule-class">Bootcamp</td>
+                        <td>Różni trenerzy</td>
+                    </tr>
+                    </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#kontakt" class="btn" id="schedule-contact-btn">Zarezerwuj miejsce</a>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Wróć na górę">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Mobile menu toggle ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const nav = document.getElementById('nav');
+            if (mobileMenuBtn && nav) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    nav.classList.toggle('active');
+                    // Toggle aria-expanded attribute for accessibility
+                    const isExpanded = nav.classList.contains('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
+                });
+            }
+
+            // --- Schedule modal ---
+            const scheduleModal = document.getElementById('schedule-modal');
+            const openScheduleLinks = document.querySelectorAll('#pokaz-harmonogram, #pokaz-harmonogram-btn, #pokaz-harmonogram-footer');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const scheduleContactBtn = document.getElementById('schedule-contact-btn');
+
+            // Function to open the modal
+            const openModal = (e) => {
+                e.preventDefault();
+                if (scheduleModal) {
+                    scheduleModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden'; // Prevent background scroll
+                    closeModalBtn?.focus(); // Focus on close button for accessibility
+                }
+            };
+
+            // Function to close the modal
+            const closeModal = () => {
+                if (scheduleModal) {
+                    scheduleModal.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Restore background scroll
+                }
+            };
+
+            // Add event listeners to all open links
+            openScheduleLinks.forEach(link => {
+                link?.addEventListener('click', openModal);
+            });
+
+            // Event listener for the close button
+            closeModalBtn?.addEventListener('click', closeModal);
+
+            // Event listener for the contact button inside the modal
+            scheduleContactBtn?.addEventListener('click', closeModal); // Close modal when clicking contact
+
+            // Close modal if clicking outside the content area
+            window.addEventListener('click', (e) => {
+                if (e.target === scheduleModal) {
+                    closeModal();
+                }
+            });
+
+            // Close modal on Escape key press
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && scheduleModal?.style.display === 'block') {
+                    closeModal();
+                }
+            });
+
+            // --- Sticky header effect ---
+            const header = document.getElementById('header');
+            let lastScrollTop = 0;
+            const scrollThreshold = 100; // Pixels scrolled before changing header style
+
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    if (scrollTop > scrollThreshold) {
+                        // Make header smaller and add shadow when scrolled down
+                        header.style.padding = '0.5rem 0';
+                        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                    } else {
+                        // Restore default header style when near the top
+                        header.style.padding = '1rem 0';
+                        header.style.boxShadow = 'none';
+                    }
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+                }, { passive: true }); // Improve scroll performance
+            }
+
+            // --- Back to top button ---
+            const backToTopBtn = document.getElementById('back-to-top');
+            const showButtonThreshold = 300; // Pixels scrolled before showing the button
+
+            if (backToTopBtn) {
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > showButtonThreshold) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                }, { passive: true }); // Improve scroll performance
+
+                backToTopBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth' // Smooth scroll animation
+                    });
+                });
+            }
+
+            // --- Smooth scrolling for anchor links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+
+                    // Ignore links that are just "#" or modal triggers
+                    if (href === '#' || href === '#pokaz-harmonogram') return;
+
+                    e.preventDefault();
+
+                    // Close mobile menu if open
+                    if (nav?.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+                    }
+
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        // Calculate scroll position considering the fixed header height
+                        const headerHeight = header?.offsetHeight || 80; // Get header height or use a default
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth' // Smooth scroll animation
+                        });
+                    }
+                });
+            });
+
+            // --- Basic form submission handling ---
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+
+            if (contactForm && formMessage) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault(); // Prevent default form submission
+
+                    // Basic validation (you might want more robust validation)
+                    const name = contactForm.querySelector('#name').value;
+                    const email = contactForm.querySelector('#email').value;
+                    const subject = contactForm.querySelector('#subject').value;
+                    const message = contactForm.querySelector('#message').value;
+
+                    if (name && email && subject && message) {
+                        // Simulate sending message
+                        formMessage.textContent = 'Twoja wiadomość została wysłana! Skontaktujemy się z Tobą wkrótce.';
+                        formMessage.style.color = 'green'; // Success message color
+                        contactForm.reset(); // Clear the form
+
+                        // Optionally hide the message after a few seconds
+                        setTimeout(() => {
+                            formMessage.textContent = '';
+                        }, 5000);
+                    } else {
+                        formMessage.textContent = 'Proszę wypełnić wszystkie wymagane pola.';
+                        formMessage.style.color = 'var(--primary)'; // Error message color
+                    }
+                });
+            }
+
+            // --- Simple fade-in animation on scroll ---
+            // Using Intersection Observer for better performance
+            const revealElements = document.querySelectorAll('.section, .class-card, .pricing-card, .gallery-item');
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target); // Stop observing once revealed
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            revealElements.forEach(element => {
+                // Apply initial styles for animation
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)'; // Start slightly lower
+                element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                revealObserver.observe(element); // Start observing
+            });
+
+             // --- Add onerror handlers for images ---
+             document.querySelectorAll('img').forEach(img => {
+                // Skip if the image already has an onerror handler
+                if (!img.hasAttribute('onerror')) {
+                    img.onerror = function() {
+                        // Try to get dimensions or use defaults
+                        const width = img.width || 300;
+                        const height = img.height || 200;
+                        // Set placeholder image source
+                        this.src = `https://placehold.co/${width}x${height}/f1faee/1d3557?text=Brak+obrazka`;
+                        // Prevent infinite loop if placeholder also fails
+                        this.onerror = null;
+                    };
+                }
+            });
+
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html>
